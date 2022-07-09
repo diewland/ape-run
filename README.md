@@ -3,7 +3,6 @@
 #### TODO
 
  * Choose apeti
- * Fix dino bug
  * Sprite overlay when game over by jump
 
 ## t-rex-runner
