@@ -30,7 +30,7 @@
 
 <body id="t" class="offline">
     <div id="messageBox" class="sendmessage">
-         <h3 style="text-align: center;font-family: 'Press Start 2P', sans-serif; padding-top: 20px;">
+         <h3 style="text-align: right;font-family: 'Press Start 2P', sans-serif; margin-right: 10px;">
            <a href='#/' onclick='choose_ape();'>#<?= $token_id; ?></a>
          </h3>
          <div class="niokbutton" onclick="okbuttonsend()"></div>
