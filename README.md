@@ -2,6 +2,7 @@
 
 #### TODO
 
+ * down arrow sprite
  * share score via twitter
  * persist score to disk
  * ~~URL pattern `/apeti-run/<token-id>`~~
