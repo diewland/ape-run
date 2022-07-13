@@ -2,9 +2,9 @@
 
 #### TODO
 
- * URL pattern `/apeti-run/<token-id>`
  * share score via twitter
  * persist score to disk
+ * ~~URL pattern `/apeti-run/<token-id>`~~
  * ~~Choose apeti~~
  * ~~Sprite overlay when game over by jump~~
 
