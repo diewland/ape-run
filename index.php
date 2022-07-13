@@ -23,7 +23,7 @@
       // choose ape
       function choose_ape() {
         let token_id = prompt('Enter Apeti ID (90-3998)');
-        if (token_id) location.href = './index.php?id=' + token_id;
+        if (token_id) location.href = './?id=' + token_id;
       };
     </script>
 </head>
