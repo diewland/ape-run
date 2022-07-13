@@ -2,8 +2,11 @@
 
 #### TODO
 
- * Choose apeti
- * Sprite overlay when game over by jump
+ * URL pattern `/apeti-run/<token-id>`
+ * share score via twitter
+ * persist score to disk
+ * ~~Choose apeti~~
+ * ~~Sprite overlay when game over by jump~~
 
 ## t-rex-runner
 

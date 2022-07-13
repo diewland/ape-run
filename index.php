@@ -15,13 +15,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=no">
     <title>Apeti Run</title>
     <link rel="stylesheet" href="index.css">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="index.js"></script>
+    <script>
+      // choose ape
+      function choose_ape() {
+        let token_id = prompt('Enter Apeti ID (90-3998)');
+        if (token_id) location.href = './index.php?id=' + token_id;
+      };
+    </script>
 </head>
 
 <body id="t" class="offline">
     <div id="messageBox" class="sendmessage">
-         <h1 style="text-align: center;font-family: 'Open Sans', sans-serif;">Press Space to start</h1>
+         <h3 style="text-align: center;font-family: 'Press Start 2P', sans-serif; padding-top: 20px;">
+           "Run with your Ape"
+          <br>
+          <br>
+           Apetimism <a href='#/' onclick='choose_ape();'>#<?= $token_id; ?></a>
+         </h3>
          <div class="niokbutton" onclick="okbuttonsend()"></div>
     </div>
     <div id="main-frame-error" class="interstitial-wrapper">
