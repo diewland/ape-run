@@ -7,7 +7,7 @@ def resize_h90(im):
     w, h = im2.size
     nh = 90
     nw = int((nh * w)/h)
-    return im2.resize((nw, nh))
+    return im2.resize((nw, nh), Image.ANTIALIAS)
 
 # 90-3998
 for i in range(90, 3999):

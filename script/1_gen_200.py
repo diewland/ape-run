@@ -20,7 +20,7 @@ def gen_sprite(token_id):
         base_x += 88
     # save to disk
     dst =  "../apeti/200/%d.png" % token_id
-    im_base.save(dst)
+    im_base.save(dst, optimize=True)
     return dst
 
 # 90-3998
