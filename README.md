@@ -2,9 +2,10 @@
 
 #### TODO
 
- * down arrow sprite
+ * apeti-run icon
  * share score via twitter
  * persist score to disk
+ * ~~down arrow sprite~~
  * ~~URL pattern `/apeti-run/<token-id>`~~
  * ~~Choose apeti~~
  * ~~Sprite overlay when game over by jump~~
