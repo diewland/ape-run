@@ -35,7 +35,7 @@
         this.distanceMeter = null;
         this.distanceRan = 0;
 
-        this.highestScore = 0;
+        this.highestScore = HI_SCORE.load();
 
         this.time = 0;
         this.runningTime = 0;
@@ -377,6 +377,9 @@
             // Distance meter
             this.distanceMeter = new DistanceMeter(this.canvas,
                 this.spriteDef.TEXT_SPRITE, this.dimensions.WIDTH);
+
+            // Show Hi-Score on Distance meter
+            this.distanceMeter.setHighScore(this.highestScore);
 
             // Draw t-rex
             this.tRex = new Trex(this.canvas, this.spriteDef.TREX);
@@ -796,10 +799,14 @@
                 this.gameOverPanel.draw();
             }
 
+            // hook score
+            HI_SCORE.hook(this.distanceMeter.getActualDistance(Math.ceil(this.distanceRan)));
+
             // Update the high score.
             if (this.distanceRan > this.highestScore) {
                 this.highestScore = Math.ceil(this.distanceRan);
                 this.distanceMeter.setHighScore(this.highestScore);
+                HI_SCORE.save(this.highestScore);
             }
 
             // Reset the time clock.
