@@ -800,7 +800,10 @@
             }
 
             // hook score
-            HI_SCORE.hook(this.distanceMeter.getActualDistance(Math.ceil(this.distanceRan)));
+            HI_SCORE.hook(
+              APETI_TOKEN_ID,
+              this.distanceMeter.getActualDistance(Math.ceil(this.distanceRan)),
+            );
 
             // Update the high score.
             if (this.distanceRan > this.highestScore) {

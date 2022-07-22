@@ -49,7 +49,7 @@
 
       // new hi-score
       $token = $data[$token_id];
-      if ($score > $token['score']) {
+      if (($score > $token['score']) && ($score <= 99999)) {
 
         // update data
         $data[$token_id]['score'] = $score;

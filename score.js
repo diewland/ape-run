@@ -12,10 +12,9 @@ let HI_SCORE = {
     return parseFloat(s);
   },
 
-  hook: (score) => {
-    // TODO sync with score service
-    // TODO if over service hi-score, submit
-    console.log('your score is', score);
+  hook: (token_id, score) => {
+    console.log(`Apetimism #${token_id} got a score of ${score}`);
+    dont_hack_me_bro(token_id, score);
   },
 
 };
