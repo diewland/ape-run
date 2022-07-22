@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Apeti Run</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+      .digit8 { font-family: 'Press Start 2P', sans-serif; }
+    </style>
+  </head>
+  <body>
+    <h4 class='text-center digit8 pt-3'>ApetiRun Ranking</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Score</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      </tbody>
+    </table>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
+    <script src="api.js?v=5"></script>
+    <script>
+
+      const MEDALS = [ '🥇', '🥈', '🥉' ];
+      const ROW_BGS = [ '#FFD700DD', '#C0C0C0DD', '#CD7F32DD' ];
+
+      list_top10(resp => {
+        let rows = resp.data || [];
+        rows.forEach((r, i) => {
+          let no = MEDALS[i] || i+1;
+          let bg = ROW_BGS[i] || '#FFF';
+          let token_id = r.token_id;
+          let replay = `<a href='./${token_id}.html'>#${token_id}</a>`;
+          let img = `<a target='_blank' href='https://quixotic.io/asset/0x51E5426eDE4e2d4c2586371372313B5782387222/${token_id}'><img class='img' src='./script/h90/${token_id}.png'></a>`;
+          let score = `<span class='digit8'>${r.score}</span>`;
+          let ts = r.ts ? moment(r.ts * 1_000).fromNow() : '';
+          let html = `
+            <tr style='background-color: ${bg};'>
+              <td>${no}</td>
+              <td>${replay}</td>
+              <td>${score}<br><sub>${ts}</sub></td>
+              <td>${img}</td>
+            </tr>
+          `;
+          $('tbody').append(html);
+        });
+      });
+    </script>
+  </body>
+</html>

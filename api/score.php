@@ -13,6 +13,7 @@
     $data = array();
     $raw = trim(file_get_contents($DAT_PATH));
     foreach(explode(',', $raw) as $token_id => $row) {
+      if ($token_id < 90) continue; // 90-3998
       $rr = explode('|', $row);
       array_push($data, array(
         'token_id' => $token_id,
