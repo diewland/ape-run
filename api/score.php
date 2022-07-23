@@ -13,7 +13,6 @@
     $data = array();
     $raw = trim(file_get_contents($DAT_PATH));
     foreach(explode(',', $raw) as $token_id => $row) {
-      if ($token_id < 90) continue; // 90-3998
       $rr = explode('|', $row);
       array_push($data, array(
         'token_id' => $token_id,
@@ -77,6 +76,7 @@
   // (2) list top 10 ------------------------------------------
 
   $data = load_dat();
+  $data = array_filter($data, function($r) { return $r['token_id'] >= 90; }); // 90-3998
 
   // sort by score
   array_multisort(array_column($data, 'score'), SORT_DESC, $data);
