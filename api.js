@@ -4,7 +4,6 @@ function ajax_json(type, url, data, success_fn, failure_fn) {
     url: url,
     dataType: 'json',
     contentType: 'application/json; charset=utf-8',
-    data: JSON.stringify(data),
     success: function(resp){
       if (success_fn) success_fn(resp);
     },
@@ -18,6 +17,7 @@ function ajax_json(type, url, data, success_fn, failure_fn) {
       }
     },
   };
+  if (data) ajax_options['data'] = JSON.stringify(data);
   return $.ajax(ajax_options);
 }
 
@@ -26,7 +26,9 @@ const SCORE_API = './api/score.php';
 
 // 1) list top 10
 function list_top10(callback) {
-  return ajax_json('GET', SCORE_API, null, callback);
+  let t = +(new Date());
+  let url = SCORE_API + '?t=' + t; // prevent cache
+  return ajax_json('GET', url, null, callback);
 }
 
 // 2) submit score
