@@ -25,6 +25,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style type='text/css'>
+      .offline .controller { top: 50px; } /* fix change id in mobile */
+    </style>
     <script>
       // choose ape
       let APETI_TOKEN_ID = <?= $token_id; ?>;
@@ -42,7 +45,8 @@
 <body id="t" class="offline">
     <div id="messageBox" class="sendmessage">
          <h3 style="text-align: right;font-family: 'Press Start 2P', sans-serif; margin-right: 10px;">
-           <a href='#/' onclick='choose_ape();'>#<?= $token_id; ?></a>
+           <a href='./rank.html' style='text-decoration: none; float: left; margin-left: 10px;'>🥇</a>
+           <a href='#/' style='text-decoration: none;' onclick='choose_ape();'>#<?= $token_id; ?></a>
          </h3>
          <div class="niokbutton" onclick="okbuttonsend()"></div>
     </div>
