@@ -26,7 +26,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style type='text/css'>
-      .offline .controller { top: 50px; height: 100%; } /* fix change id in mobile */
+      .offline .controller { /* fix change id in mobile */
+        margin-top: 50px;
+        height: calc(100% - 50px);
+      }
+      div#messageBox h3 {
+        text-align: right;
+        font-family: 'Press Start 2P', sans-serif;
+        margin: 0px;
+        margin-right: 10px;
+        padding-top: 1em;
+      }
     </style>
     <script>
       // choose ape
@@ -44,9 +54,9 @@
 
 <body id="t" class="offline">
     <div id="messageBox" class="sendmessage">
-         <h3 style="text-align: right;font-family: 'Press Start 2P', sans-serif; margin-right: 10px;">
-           <a href='./rank.html' style='text-decoration: none; float: left; margin-left: 10px;'>🥇</a>
-           <a href='#/' style='text-decoration: none;' onclick='choose_ape();'>#<?= $token_id; ?></a>
+         <h3>
+           <a title='Check Rank' href='./rank.html' style='text-decoration: none; float: left; margin-left: 10px;'>🥇</a>
+           <a title='Change Apeti' href='#/' style='text-decoration: none;' onclick='choose_ape();'>#<?= $token_id; ?></a>
          </h3>
          <div class="niokbutton" onclick="okbuttonsend()"></div>
     </div>
