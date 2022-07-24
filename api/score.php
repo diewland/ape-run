@@ -2,16 +2,16 @@
   header('Content-Type: application/json');
 
   // (0) ------------------------------------------------------
-
-  $DAT_PATH = './score.dat';
+  $Q_MONTHLY = 'month';
+  $Q_ALL_TIME = 'all';
+  $DAT_MONTHLY = './month.dat';
+  $DAT_ALL_TIME = './score.dat';
   $REAL_SECRET = 'donothackmebro';
   $API_METHOD = $_SERVER['REQUEST_METHOD'];
-  $NOW = new DateTime();
 
-  function load_dat() {
-    global $DAT_PATH;
+  function load_dat($src_path) {
     $data = array();
-    $raw = trim(file_get_contents($DAT_PATH));
+    $raw = trim(file_get_contents($src_path));
     foreach(explode(',', $raw) as $token_id => $row) {
       $rr = explode('|', $row);
       array_push($data, array(
@@ -23,15 +23,36 @@
     return $data;
   }
 
-  function save_dat($raw) {
-    global $DAT_PATH;
-    file_put_contents($DAT_PATH, $raw);
+  function save_dat($src_path, $raw) {
+    file_put_contents($src_path, $raw);
   }
 
   // (1) submit score -----------------------------------------
 
+  function update_hi_score($token_id, $score, $src_path) {
+    $now = new DateTime();
+    $data = load_dat($src_path);
+
+    // new hi-score
+    $token = $data[$token_id];
+    if (($score > $token['score']) && ($score <= 99999)) {
+
+      // update data
+      $data[$token_id]['score'] = $score;
+      $data[$token_id]['ts'] = $now->getTimestamp();
+
+      // write file
+      $raw = array_map(function($r) {
+        if (empty($r['ts'])) return $r['score'];
+        else                 return $r['score'].'|'.$r['ts'];
+      }, $data);
+      $raw = join(',', $raw);
+      save_dat($src_path, $raw);
+    }
+  }
+
   if ($API_METHOD == 'POST') {
-    $resp = array( 'success' => false, 'new_hiscore' => false );
+    $resp = array( 'success' => false );
 
     // extract json data
     $data = json_decode(file_get_contents('php://input'), true);
@@ -42,30 +63,12 @@
     // if new hiscore, submit
     if ($secret == $REAL_SECRET) {
 
-      $data = load_dat();
-
       // update flag
       $resp['success'] = true;
 
-      // new hi-score
-      $token = $data[$token_id];
-      if (($score > $token['score']) && ($score <= 99999)) {
-
-        // update data
-        $data[$token_id]['score'] = $score;
-        $data[$token_id]['ts'] = $NOW->getTimestamp();
-
-        // write file
-        $raw = array_map(function($r) {
-          if (empty($r['ts'])) return $r['score'];
-          else                 return $r['score'].'|'.$r['ts'];
-        }, $data);
-        $raw = join(',', $raw);
-        save_dat($raw);
-
-        // update flag
-        $resp['new_hiscore'] = true;
-      }
+      // update hi-score
+      update_hi_score($token_id, $score, $DAT_MONTHLY);
+      update_hi_score($token_id, $score, $DAT_ALL_TIME);
     }
 
     // return
@@ -75,7 +78,10 @@
 
   // (2) list top 10 ------------------------------------------
 
-  $data = load_dat();
+  $query_path = $DAT_MONTHLY;
+  $q = $_GET['q'] ?? $Q_MONTHLY;
+  if ($q == $Q_ALL_TIME) $query_path = $DAT_ALL_TIME;
+  $data = load_dat($query_path);
   $data = array_filter($data, function($r) { return $r['token_id'] >= 90; }); // 90-3998
 
   // sort by score

@@ -29,7 +29,10 @@
           <th scope="col">#</th>
           <th scope="col">ID</th>
           <th scope="col">Score</th>
-          <th></th>
+          <th class='text-end'>
+            <a href='./rank.html?q=month'><span class="bdg-month badge rounded-pill">Monthly</span></a>
+            <a href='./rank.html?q=all'><span class="bdg-all badge rounded-pill">All-Time</span></a>
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -44,12 +47,30 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/moment@2.29.4/moment.min.js"></script>
-    <script src="api.js?v=6"></script>
+    <script src="api.js?v=2"></script>
     <script>
 
+      // config
       const MEDALS = [ '🥇', '🥈', '🥉' ];
       const ROW_BGS = [ '#FFD700DD', '#C0C0C0DD', '#CD7F32DD' ];
+      const Q_MONTHLY = 'month';
+      const Q_ALL_TIME = 'all';
 
+      // check monthly or all-time
+      const params = new Proxy(new URLSearchParams(window.location.search), {
+        get: (searchParams, prop) => searchParams.get(prop),
+      });
+      let q = params.q || Q_MONTHLY;
+      if (q == Q_ALL_TIME) {
+        $('.bdg-month').addClass('text-bg-light');
+        $('.bdg-all').addClass('text-bg-secondary');
+      }
+      else { // default: monthly
+        $('.bdg-month').addClass('text-bg-secondary');
+        $('.bdg-all').addClass('text-bg-light');
+      }
+
+      // list top 10
       list_top10(resp => {
         let rows = resp.data || [];
         rows.forEach((r, i) => {
@@ -70,7 +91,8 @@
           `;
           $('tbody').append(html);
         });
-      });
+      }, q);
+
     </script>
   </body>
 </html>

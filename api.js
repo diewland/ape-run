@@ -25,9 +25,9 @@ function ajax_json(type, url, data, success_fn, failure_fn) {
 const SCORE_API = './api/score.php';
 
 // 1) list top 10
-function list_top10(callback) {
+function list_top10(callback, q) {
   let t = +(new Date());
-  let url = SCORE_API + '?t=' + t; // prevent cache
+  let url = SCORE_API + '?q=' + q + '&t=' + t; // prevent cache
   return ajax_json('GET', url, null, callback);
 }
 
