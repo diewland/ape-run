@@ -26,7 +26,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style type='text/css'>
-      .offline .controller { top: 50px; } /* fix change id in mobile */
+      .offline .controller { top: 50px; height: 100%; } /* fix change id in mobile */
     </style>
     <script>
       // choose ape
